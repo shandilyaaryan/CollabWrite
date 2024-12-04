@@ -28,6 +28,8 @@ import {
   ImageIcon,
   ItalicIcon,
   Link2Icon,
+  ListIcon,
+  ListOrderedIcon,
   ListTodoIcon,
   LucideIcon,
   MessageSquarePlusIcon,
@@ -44,7 +46,51 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
-import TextAlign from "@tiptap/extension-text-align";
+import { isActive } from "@tiptap/core";
+
+
+
+const ListButton = () => {
+  const { editor } = useEditorStore();
+
+  const lists = [
+    {
+      label:"Bullet List",
+      icon: ListIcon,
+      isActive: () => editor?.isActive("bulletList"),
+      onClick: () => editor?.chain().focus().toggleBulletList().run()
+    },
+    {
+      label:"Ordered List",
+      icon: ListOrderedIcon,
+      isActive: () => editor?.isActive("orderedList"),
+      onClick: () => editor?.chain().focus().toggleOrderedList().run()
+    }
+  ]
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button className="h-7 min-w-7 shrink-0 flex flex-col justify-center items-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
+          <ListIcon size="" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+        {lists.map(({ label, icon: Icon, onClick, isActive}) => (
+          <button key={label} onClick={onClick}
+          className={cn(
+            "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
+            isActive() && "bg-neutral-200/80"
+          )}
+          >
+            <Icon className="size-4" />
+            <span className="text-sm">{label}</span>
+          </button>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
 
 
 const AlignButton = () => {
@@ -498,6 +544,7 @@ export const Toolbar = () => {
       <LinkButton />
       <ImageButton />
       <AlignButton />
+      <ListButton />
       {sections[2].map((item) => (
         <ToolbarButton key={item.label} {...item} />
       ))}
