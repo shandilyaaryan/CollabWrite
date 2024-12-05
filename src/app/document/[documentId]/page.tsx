@@ -1,4 +1,4 @@
-import { Editor } from "./Editor";
+import { Editor } from "./editor";
 import { Toolbar } from "./toolbar";
 const DocumentPage = async ( ) => {
     return ( 
