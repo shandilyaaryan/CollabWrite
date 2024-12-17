@@ -161,13 +161,13 @@ body {
    h5, 
    h6 {
      line-height: 1.1;
-     margin-top: 2.5rem;
+     margin-top: 0;
      text-wrap: pretty;
    }
  
    h1, 
    h2 {
-     margin-top: 3.5rem;
+     margin-top: 0rem;
      margin-bottom: 1.5rem;
    }
  
