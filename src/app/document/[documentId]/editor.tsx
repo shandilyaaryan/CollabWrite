@@ -5,7 +5,7 @@ import { Ruler } from "./Ruler";
 import StarterKit from "@tiptap/starter-kit";
 import TaskItem from "@tiptap/extension-task-item";
 import FontFamily from "@tiptap/extension-font-family";
-import Link from "@tiptap/extension-link"
+import Link from "@tiptap/extension-link";
 import TaskList from "@tiptap/extension-task-list";
 import TextStyle from "@tiptap/extension-text-style";
 import TextAlign from "@tiptap/extension-text-align";
@@ -64,19 +64,17 @@ export const Editor = () => {
       FontSizeExtension,
       LineHeightExtension.configure({
         types: ["heading", "paragraph"],
-        defaultLineHeight: "normal"
+        defaultLineHeight: "normal",
       }),
       TextAlign.configure({
-        types: ["heading", "paragraph"] 
+        types: ["heading", "paragraph"],
       }),
       Link.configure({
         openOnClick: false,
         autolink: true,
-        defaultProtocol: "https"
+        defaultProtocol: "https",
       }),
-      Highlight.configure(
-        {multicolor: true}
-      ),
+      Highlight.configure({ multicolor: true }),
       Color,
       TextStyle,
       FontFamily,

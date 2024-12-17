@@ -35,8 +35,23 @@ import {
   Undo2Icon,
 } from "lucide-react";
 import { BsFilePdf } from "react-icons/bs";
+import { useEditorStore } from "@/store/use-editor-store";
 
 export const Navbar = () => {
+  const { editor } = useEditorStore();
+
+  const insertTable = ({ rows, cols }: { rows: number, cols: number}) => {
+    editor?.chain().focus().insertTable({ rows, cols, withHeaderRow: false }).run()
+  }
+
+  const onDownload = (blob: Blob, filename: string) => {
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+  }
+
   return (
     <nav className="flex items-center justify-between">
       <div className="flex gap-2 items-center">
@@ -101,11 +116,11 @@ export const Navbar = () => {
                   Edit
                 </MenubarTrigger>
                 <MenubarContent>
-                  <MenubarItem>
+                  <MenubarItem onClick={() => editor?.chain().focus().undo().run()}>
                     <Undo2Icon className="size-4 mr-2" />
                     Undo <MenubarShortcut>⌘Z</MenubarShortcut>
                   </MenubarItem>
-                  <MenubarItem>
+                  <MenubarItem onClick={() => editor?.chain().focus().redo().run()}>
                     <Redo2Icon className="size-4 mr-2" />
                     Redo <MenubarShortcut>⌘Y</MenubarShortcut>
                   </MenubarItem>
@@ -117,22 +132,12 @@ export const Navbar = () => {
                 </MenubarTrigger>
                 <MenubarContent>
                   <MenubarSub>
-                    <MenubarSubTrigger>
-                       Table
-                    </MenubarSubTrigger>
+                    <MenubarSubTrigger>Table</MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem>
-                        1 x 1
-                      </MenubarItem>
-                      <MenubarItem>
-                        2 x 2
-                      </MenubarItem>
-                      <MenubarItem>
-                        3 x 3
-                      </MenubarItem>
-                      <MenubarItem>
-                        4 x 4
-                      </MenubarItem>
+                      <MenubarItem onClick={() => insertTable({rows: 1, cols: 1})}>1 x 1</MenubarItem>
+                      <MenubarItem onClick={() => insertTable({rows: 2, cols: 2})}>2 x 2</MenubarItem>
+                      <MenubarItem onClick={() => insertTable({rows: 3, cols: 3})}>3 x 3</MenubarItem>
+                      <MenubarItem onClick={() => insertTable({rows: 4, cols: 4})}>4 x 4</MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
                 </MenubarContent>
@@ -148,25 +153,27 @@ export const Navbar = () => {
                       Text
                     </MenubarSubTrigger>
                     <MenubarSubContent>
-                      <MenubarItem>
+                      <MenubarItem onClick={() => editor?.chain().focus().toggleBold().run()}>
                         <BoldIcon className="size-4 mr-2" />
                         Bold <MenubarShortcut>⌘B</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={() => editor?.chain().focus().toggleItalic().run()}>
                         <ItalicIcon className="size-4 mr-2" />
-                        Italic <MenubarShortcut className="mr-1">⌘I</MenubarShortcut>
+                        Italic{" "}
+                        <MenubarShortcut className="mr-1">⌘I</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={() => editor?.chain().focus().toggleUnderline().run()}>
                         <UnderlineIcon className="size-4 mr-2" />
                         Underline <MenubarShortcut>⌘U</MenubarShortcut>
                       </MenubarItem>
-                      <MenubarItem>
+                      <MenubarItem onClick={() => editor?.chain().focus().toggleStrike().run()}>
                         <StrikethroughIcon className="size-4 mr-2" />
-                        Strikethrough <MenubarShortcut className="ml-3">⌘S</MenubarShortcut>
+                        Strikethrough
+                        <MenubarShortcut className="ml-3">⌘S</MenubarShortcut>
                       </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
-                  <MenubarItem>
+                  <MenubarItem onClick={() => editor?.chain().focus().unsetAllMarks().run()}>
                     <RemoveFormattingIcon className="size-4 mr-2" />
                     Reset
                   </MenubarItem>
