@@ -11,7 +11,7 @@ const Home = () => {
 
   if (documents === undefined) {
     return (
-      <FullscreenLoader label="Loading" />
+      <FullscreenLoader label=" Docs Loading..." />
     )
   }
   return ( 
