@@ -15,6 +15,16 @@ Welcome to the **Docs Project**, a collaborative, real-time document editing web
 
 ---
 
+## Demo Video
+
+Watch the project in action:
+
+https://github.com/user-attachments/assets/f3ed998e-cead-4389-844b-8eff060262ba
+
+
+  
+---
+
 ## Tech Stack
 
 ### Frontend
