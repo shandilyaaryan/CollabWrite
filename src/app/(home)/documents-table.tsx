@@ -36,7 +36,9 @@ export const DocumentsTable = ({documents, loadMore, status}: DocumentsTableProp
                         </TableBody>
                     ) : (
                         <TableBody>
-                            Documents
+                            {documents.map((document) => (
+                                <DocumentRow key={document._id} document={document} />
+                            ))}
                         </TableBody>
                     )}
                 </Table>
