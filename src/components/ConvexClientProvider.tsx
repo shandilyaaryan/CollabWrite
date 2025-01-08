@@ -19,7 +19,7 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
                     <SignIn routing="hash" /> {/*TODO: Add main page*/}
                   </div>
                 </Unauthenticated>
-                <AuthLoading><FullscreenLoader label="Auth Loading..." /></AuthLoading>
+                <AuthLoading><FullscreenLoader label="Loading..." /></AuthLoading>
               </ConvexProviderWithClerk>
           </ClerkProvider>;
 }
