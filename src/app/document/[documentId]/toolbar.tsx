@@ -398,7 +398,7 @@ const HighlightColorButton = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="h-7 min-w-7 shrink-0 flex flex-col justify-center items-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm">
-          <HighlighterIcon size="" />
+          <HighlighterIcon className="size-4" />
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="p-0">
@@ -622,8 +622,8 @@ export const Toolbar = () => {
       {
         label: "Comment",
         icon: MessageSquarePlusIcon,
-        onClick: () => {},
-        isActive: false,
+        onClick: () => editor?.chain().focus().addPendingComment().run(),
+        isActive: editor?.isActive("liveblocksComentMark"),
       },
       {
         label: "List Todo",

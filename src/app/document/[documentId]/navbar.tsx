@@ -12,7 +12,7 @@ import {
   MenubarShortcut,
   MenubarSub,
   MenubarSubContent,
-  MenubarSubTrigger,
+  MenubarSubTrigger, 
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import {
