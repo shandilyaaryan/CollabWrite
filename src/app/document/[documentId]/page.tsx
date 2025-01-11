@@ -2,7 +2,14 @@ import { Editor } from "./editor";
 import { Navbar } from "./navbar";
 import { Room } from "./Room";
 import { Toolbar } from "./toolbar";
-const DocumentPage = async () => {
+
+interface DocumentIdPageProps {
+  params: Promise<{documentId: string}>
+}
+
+const DocumentPage = async ({ params }: DocumentIdPageProps) => {
+  throw new Error("OO")
+  const { documentId } = await params;
   return (
     <div className="min-h-screen bg-[#FAFBFD]">
       <div className="flex z-10 flex-col px-4 pt-2 gap-y-2 fixed top-0 left-0 right-0 bg-[#FAFBFD] print:hidden">
