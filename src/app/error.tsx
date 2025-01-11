@@ -14,7 +14,7 @@ const Error = ({ error, reset }: {error: Error & { digest?: string}; reset: () =
                 </div>
             </div>
             <div className="space-y-2">
-                <h2 className="text-xl font-semibold text-gray-900">
+                <h2 className="text-xl text-center font-semibold text-gray-900">
                     Something went wrong
                 </h2>
                 <p className="text-center ">
