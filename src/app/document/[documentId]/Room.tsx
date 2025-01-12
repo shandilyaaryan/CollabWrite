@@ -35,7 +35,16 @@ export function Room({ children }: { children: ReactNode }) {
 
   return (
     <LiveblocksProvider
-      authEndpoint="/api/liveblocks-auth"
+      authEndpoint={async () => {
+        const endpoint = "/api/liveblocks-auth"
+        const room = params.documentId as string;
+
+        const response = await fetch(endpoint, {
+          method: "POST",
+          body: JSON.stringify({ room })
+        });
+        return await response.json();
+      }}
       throttle={16}
       resolveUsers={({ userIds }) => {
         return userIds.map(
