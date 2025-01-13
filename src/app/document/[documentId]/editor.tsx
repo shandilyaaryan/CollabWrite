@@ -23,7 +23,7 @@ import { FontSizeExtension } from "@/extensions/font-size";
 import { LineHeightExtension } from "@/extensions/line-height";
 
 import { useEditorStore } from "@/store/use-editor-store";
-import { useStorage } from "@liveblocks/react";
+import { ClientSideSuspense, useStorage } from "@liveblocks/react";
 import { Threads } from "./threads";
 
 interface EditorProps {
@@ -110,7 +110,9 @@ export const Editor = ({ initialContent }: EditorProps) => {
       <Ruler />
       <div className="min-w-max flex justify-center w-[816px] py-4 print:py-0 mx-auto print:w-full print:min-w-0">
         <EditorContent editor={editor} />
+        <ClientSideSuspense fallback={null}>
         <Threads editor={editor} />
+        </ClientSideSuspense>
       </div>
     </div>
   );
