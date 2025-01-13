@@ -46,6 +46,7 @@ export const FontSizeExtension = Extension.create({
                     .setMark("textStyle", { fontSize })
                     .run()
             },
+            // @ts-expect-error Type error
             unsetFontSize: () => ({ chain }) => {
                 return chain().setMark("textStyle", { fontSize: null}).removeEmptyTextStyle().run()
             }
