@@ -2,10 +2,8 @@ import { mutation, query } from "./_generated/server";
 import { ConvexError, v } from "convex/values";
 import { paginationOptsValidator } from "convex/server";
 
-
-
 export const getByIds = query({
-  args: { ids: v.array(v.id("documents"))},
+  args: { ids: v.array(v.id("documents")) },
   handler: async (ctx, { ids }) => {
     const documents = [];
 
@@ -13,13 +11,13 @@ export const getByIds = query({
       const document = await ctx.db.get(id);
 
       if (document) {
-        documents.push({ id: document._id, name: document.title })
+        documents.push({ id: document._id, name: document.title });
       } else {
-        documents.push({ id, name: "[Removed]" })
+        documents.push({ id, name: "[Removed]" });
       }
     }
-    return documents; 
-  }
+    return documents;
+  },
 });
 
 export const create = mutation({
@@ -117,7 +115,9 @@ export const removebyId = mutation({
     }
 
     const isOwner = document.ownerId === user.subject;
-    const isOrganizationMember = !!(document.organizationId && document.organizationId === organizationId);
+    const isOrganizationMember = !!(
+      document.organizationId && document.organizationId === organizationId
+    );
 
     if (!isOwner && !isOrganizationMember) {
       throw new ConvexError("Unauthorized");
@@ -146,7 +146,9 @@ export const updateById = mutation({
     }
 
     const isOwner = document.ownerId === user.subject;
-    const isOrganizationMember = !!(document.organizationId && document.organizationId === organizationId);
+    const isOrganizationMember = !!(
+      document.organizationId && document.organizationId === organizationId
+    );
 
     if (!isOwner && !isOrganizationMember) {
       throw new ConvexError("Unauthorized");
@@ -157,8 +159,12 @@ export const updateById = mutation({
 });
 
 export const getById = query({
-  args:{ id: v.id("documents")},
+  args: { id: v.id("documents") },
   handler: async (ctx, { id }) => {
-    return await ctx.db.get(id);
+    const document = await ctx.db.get(id);
+    if (!document) {
+      throw new ConvexError("Document Not Found");
+    }
+    return await document;
   },
-})
+});

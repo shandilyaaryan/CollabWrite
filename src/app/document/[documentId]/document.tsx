@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { api } from "../../../../convex/_generated/api";
 import { Preloaded, usePreloadedQuery } from "convex/react";
@@ -12,7 +12,7 @@ interface DocumentProps {
 }
 
 export const Document = ({ preloadedDocument }: DocumentProps) => {
-    const document = usePreloadedQuery(preloadedDocument)
+  const document = usePreloadedQuery(preloadedDocument);
   return (
     <Room>
       <div className="min-h-screen bg-[#FAFBFD]">

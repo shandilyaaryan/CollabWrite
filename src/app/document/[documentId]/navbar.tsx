@@ -40,9 +40,8 @@ import { Avatars } from "./avatars";
 import Inbox from "./inbox";
 import { Doc } from "../../../../convex/_generated/dataModel";
 
-
 interface NavbarProps {
-  data: Doc<"documents">
+  data: Doc<"documents">;
 }
 
 export const Navbar = ({ data }: NavbarProps) => {
@@ -71,7 +70,7 @@ export const Navbar = ({ data }: NavbarProps) => {
     const blob = new Blob([JSON.stringify(content)], {
       type: "application/json",
     });
-    onDownload(blob, `${data.title}.json`); 
+    onDownload(blob, `${data.title}.json`);
   };
 
   const onSaveHTML = () => {
@@ -101,7 +100,7 @@ export const Navbar = ({ data }: NavbarProps) => {
           <Image src="/logo.svg" alt="logo" width={36} height={36} />
         </Link>
         <div className="flex flex-col">
-          <DocumentInput />
+          <DocumentInput title={data.title} id={data._id} />
           <div className="flex">
             <Menubar className="border-none bg-transparent shadow-none h-auto p-0">
               <MenubarMenu>
