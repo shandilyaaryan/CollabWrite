@@ -12,7 +12,7 @@ import {
   MenubarShortcut,
   MenubarSub,
   MenubarSubContent,
-  MenubarSubTrigger, 
+  MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import {
@@ -38,8 +38,14 @@ import { useEditorStore } from "@/store/use-editor-store";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { Avatars } from "./avatars";
 import Inbox from "./inbox";
+import { Doc } from "../../../../convex/_generated/dataModel";
 
-export const Navbar = () => {
+
+interface NavbarProps {
+  data: Doc<"documents">
+}
+
+export const Navbar = ({ data }: NavbarProps) => {
   const { editor } = useEditorStore();
 
   const insertTable = ({ rows, cols }: { rows: number; cols: number }) => {
@@ -65,7 +71,7 @@ export const Navbar = () => {
     const blob = new Blob([JSON.stringify(content)], {
       type: "application/json",
     });
-    onDownload(blob, `document.json`); //TODO: Use Document Name
+    onDownload(blob, `${data.title}.json`); 
   };
 
   const onSaveHTML = () => {
@@ -75,7 +81,7 @@ export const Navbar = () => {
     const blob = new Blob([content], {
       type: "text/html",
     });
-    onDownload(blob, `document.html`);
+    onDownload(blob, `${data.title}.html`);
   };
 
   const onSaveText = () => {
@@ -85,7 +91,7 @@ export const Navbar = () => {
     const blob = new Blob([content], {
       type: "text/plain",
     });
-    onDownload(blob, `document.txt`);
+    onDownload(blob, `${data.title}.txt`);
   };
 
   return (
