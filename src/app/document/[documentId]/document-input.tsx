@@ -1,10 +1,12 @@
-import { BsCloudCheck } from "react-icons/bs";
+import { BsCloudCheck, BsCloudSlash } from "react-icons/bs";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { useRef, useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import { useDebounce } from "@/hooks/use-debounce";
 import { toast } from "sonner";
+import { useStatus } from "@liveblocks/react";
+import { LoaderIcon } from "lucide-react";
 
 interface DocumentInputProps {
   title: string;
@@ -12,8 +14,8 @@ interface DocumentInputProps {
 }
 
 export const DocumentInput = ({ title, id }: DocumentInputProps) => {
+  const status = useStatus();
   const [value, setValue] = useState(title);
-  const [isError, setisError] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [isEditing, setIsEditng] = useState(false);
 
@@ -43,6 +45,9 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
       .catch(() => toast.error("Something went wrong"))
       .finally(() => setIsPending(false))
   };
+
+  const showLoader = isPending || status === "connecting" || status === "reconnecting";
+  const showError = status === "disconnected";
 
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +82,9 @@ export const DocumentInput = ({ title, id }: DocumentInputProps) => {
           {title}
         </span>
       )}
-      <BsCloudCheck />
+      {showError && <BsCloudSlash className="size-4" />}
+      {!showError && !showLoader && <BsCloudCheck className="size-4" />}
+      {showLoader && <LoaderIcon className="size-4 animate-spin text-muted-foreground" />}
     </div>
   );
 };
