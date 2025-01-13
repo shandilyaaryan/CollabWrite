@@ -15,6 +15,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "CollabWrite",
   description: "A powerful collaborative app for creating documents",
+  icons: "./favicon.svg"
 };
 
 export default function RootLayout({
