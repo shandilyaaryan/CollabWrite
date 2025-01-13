@@ -18,7 +18,7 @@ export const getByIds = query({
         documents.push({ id, name: "[Removed]" })
       }
     }
-    
+    return documents; 
   }
 });
 

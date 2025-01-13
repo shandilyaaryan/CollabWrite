@@ -301,3 +301,7 @@ body {
 .lb-composer-editor {
   outline: none;
 }
+
+div[data-radix-popper-content-wrapper] {
+  z-index: 50 !important;
+}

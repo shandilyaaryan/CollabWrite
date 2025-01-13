@@ -11,11 +11,24 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
+import { Separator } from "@/components/ui/separator";
 
 
 const Inbox = () => {
     return ( 
-        <ClientSideSuspense fallback={null}>
+        <ClientSideSuspense fallback={
+        <>
+            <Button
+            disabled
+            variant={"ghost"}
+            className="relative"
+            size={"icon"}
+            >
+                <BellIcon className="size-5" />
+        </Button>
+        <Separator orientation="vertical" className="h-6" />
+        </>
+        }>
             <InboxMenu />
         </ClientSideSuspense>
      );
@@ -28,6 +41,7 @@ const InboxMenu = () => {
     const { inboxNotifications } = useInboxNotifications();
 
     return (
+        <>
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button
@@ -57,6 +71,8 @@ const InboxMenu = () => {
                     )}
             </DropdownMenuContent>
         </DropdownMenu>
+        <Separator orientation="vertical" className="h-6" />
+    </>
     )
 }
  
